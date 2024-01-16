@@ -26,4 +26,8 @@ deploy2:
     syncwave:
       deployment: 10
       configmap: 1
-test: Null
+test: Healthy
+github:
+  user: infernusec
+  token: empty-pass
+  url: https://api.github.com/repos/infernusec/learnoc/issues
