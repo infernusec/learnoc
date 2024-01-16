@@ -5,7 +5,7 @@ type: application
 dependencies:
   - name: hello-world
     repository: "oci://ghcr.io/infernusec/helm"
-    version: "1.0.4"
+    version: "1.0.5"
     alias: deploy1
   - name: hello-world
     repository: "oci://ghcr.io/infernusec/helm"
