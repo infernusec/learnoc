@@ -31,6 +31,9 @@ spec:
             - containerPort: {{.Values.containers.containerPort}}
               protocol: TCP
           imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: {{ .Values.containers.containerPort | quote }}
           readinessProbe:
             httpGet:
               path: /health/readiness # this check the application url path
