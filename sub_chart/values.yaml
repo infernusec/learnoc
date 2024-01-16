@@ -12,7 +12,6 @@ deploy1:
       deployment: 5
       configmap: 1
 
----
 deploy2:
   ReplicaNumber: 1
 
