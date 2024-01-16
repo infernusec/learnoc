@@ -26,3 +26,4 @@ deploy2:
     syncwave:
       deployment: 10
       configmap: 1
+test: Healty
