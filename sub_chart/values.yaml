@@ -5,9 +5,13 @@ deploy1:
       containerPort: 8080
       image: 'quay.io/snirsofer/hello-world'
       tag: 'chart_v1'
-
   service:
       servicePort: 8080
+  argocd:
+    syncwave:
+      deployment: 5
+
+---
 deploy2:
   ReplicaNumber: 1
 
@@ -18,3 +22,6 @@ deploy2:
 
   service:
       servicePort: 8080
+  argocd:
+    syncwave:
+      deployment: 10
