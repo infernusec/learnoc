@@ -14,6 +14,9 @@ spec:
       labels:
 # set your lab user name
         app: {{.Chart.Name}}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       volumes:
         - name: index-html
@@ -24,7 +27,7 @@ spec:
         - resources: {}
           volumeMounts:
             - name: index-html
-              mountPath: /tmp/html
+              mountPath: {{.Values.volume.mount.path}}
           terminationMessagePath: /dev/termination-log
           name: hello-world
           ports:
@@ -39,21 +42,23 @@ spec:
               path: /health/readiness # this check the application url path
               port: {{ .Values.containers.containerPort  }} # In which port the Application is listening
               scheme: HTTP
-            initialDelaySeconds: 1 # the time is waiting befor testing the application path
-            timeoutSeconds: 1 # the time for timeout
-            periodSeconds: 10 # the abount of time to wait between checks
-            successThreshold: 1 # count to decalre seccessfull
-            failureThreshold: 3 # count to decalre failure
+            {{- tpl (toYaml .Values.Probes.readiness) . | nindent 12 }}
+            #initialDelaySeconds: 1 # the time is waiting befor testing the application path
+            #timeoutSeconds: 1 # the time for timeout
+            #periodSeconds: 10 # the abount of time to wait between checks
+            #successThreshold: 1 # count to decalre seccessfull
+            #failureThreshold: 3 # count to decalre failure
           livenessProbe:
             httpGet:
               path: /health/liveliness
               port: {{ .Values.containers.containerPort }}
               scheme: HTTP
-            initialDelaySeconds: 1
-            timeoutSeconds: 1
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
+            #initialDelaySeconds: 1
+            #timeoutSeconds: 1
+            #periodSeconds: 10
+            #successThreshold: 1
+            #failureThreshold: 3
+            {{- tpl (toYaml .Values.Probes.liveness) . | nindent 12 }}
 
 # Update with the image you build in part 1
           image: {{.Values.containers.image}}:{{.Values.containers.tag}}
