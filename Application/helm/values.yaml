@@ -4,6 +4,7 @@ containers:
   containerPort: 8080
   image: 'quay.io/snirsofer/hello-world'
   tag: 'chart_v1'
+  port: 8080
 
 service:
   servicePort: 8080
