@@ -26,7 +26,7 @@ deploy2:
     syncwave:
       deployment: 10
       configmap: 1
-test: Healthy
+test: Null
 github:
   user: infernusec
   token: empty-pass
